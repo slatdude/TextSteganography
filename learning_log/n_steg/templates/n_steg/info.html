@@ -1,0 +1,168 @@
+
+<!doctype html>
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118000090-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-118000090-2');
+    </script>
+
+    <meta property="og:title" content="STEGASURAS">
+    <meta property="og:description" content="STEGanography via Arithmetic coding and Strong neURAl modelS">
+    <meta property="og:image" content="https://steganography.live/static/61369-200_orange.png">
+    <meta property="og:url" content="https://steganography.live/">
+    <meta property="og:site_name" content="STEGASURAS">
+
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="Content-Language" content="en">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel= "stylesheet" type= "text/css" href= "/static/css/base.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <meta name="viewport" content="width=300, initial-scale=1">
+    <title>Info</title>
+    <script src="static/js/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $SCRIPT_ROOT = "";
+
+        $(document).ready(function() {
+            window.addEventListener('resize', checkSize);
+            //$(window).resize(checkSize('png'));
+
+            var email1 = "2018303060063@whu.edu.cn"
+            var name1 = "徐云骞*"
+            var new_elem1 = "<a href='mailto:" + email1 + "'>" + name1 + "</a>";
+            var email2 = "2018302180187@whu.edu.cn"
+            var name2 = "梅晨淳*"
+            var new_elem2 = "<a href='mailto:" + email2 + "'>" + name2 + "</a>";
+            var email3 = "2018302180173@whu.edu.cn"
+            var name3 = "周游*"
+            var new_elem3 = "<a href='mailto:" + email3 + "'>" + name3 + "</a>";
+            var email4 = "2018302180170@whu.edu.cn"
+            var name4 = "薛淇泽*"
+            var new_elem4 = "<a href='mailto:" + email4 + "'>" + name4 + "</a>";
+            $(".email1").replaceWith(new_elem1);
+            $(".email2").replaceWith(new_elem2);
+            $(".email3").replaceWith(new_elem3);
+            $(".email4").replaceWith(new_elem4);
+        });
+
+        function checkSize(e) {
+            $('#menu_button').attr('src', '/static/button_icon.png');
+            //$('#menu_button').css('background-color', 'white');
+            //console.log($('#menu').css('position'));
+            if ($('#menu').css('position') == 'absolute') {
+                //$('#menu').css('display', 'none');
+                $('#menu').css('visibility', 'hidden');
+                $('#menu').css('opacity', 0);
+                $('#menu').css('filter', 'alpha(opacity=0)');
+            } else {
+                //$('#menu').css('display', 'block');
+                $('#menu').css('visibility', 'visible');
+                $('#menu').css('opacity', 1);
+                $('#menu').css('filter', 'alpha(opacity=100)');
+            }
+
+        }
+
+        function toggle_menu(filetype) {
+            var display_val = $('#menu').css('visibility');
+
+            if (display_val == 'hidden') {
+                //$('#menu').css('display', 'block');
+                $('#menu').css('visibility', 'visible');
+                $('#menu').css('opacity', 1);
+                $('#menu').css('filter', 'alpha(opacity=100)');
+                $('#menu_button').attr('src', '/static/button_icon_active.'+filetype);
+                //$('#menu_button').css('background-color', '#dddddd');
+            } else {
+                //$('#menu').css('display', 'none');
+                $('#menu').css('visibility', 'hidden');
+                $('#menu').css('opacity', 0);
+                $('#menu').css('filter', 'alpha(opacity=0)');
+                $('#menu_button').attr('src', '/static/button_icon.'+filetype);
+                //$('#menu_button').css('background-color', 'white');
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="very_outer">
+<div id="header_wrapper">
+    <div id="header" class="cf">
+        <div id="title">
+            <img src="/static/61369-200_orange.png"/>
+            <a class="header_button" href="{% url 'n_steg:info' %}">STEGANORGRAPHY AND LOVE</a>
+        </div>
+        <img id="menu_button" onclick="toggle_menu('png');" src='/static/button_icon.png'>
+        <div id="menu">
+            <div id="left" class="menu_item active">
+                <a class="header_button" href="{% url 'n_steg:info' %}">Info</a>
+            </div>
+            <div id="mid" class="menu_item ">
+                <a class="header_button" href="{% url 'n_steg:encrypt' %}">Encrypt</a>
+            </div>
+            <div id="right" class="menu_item ">
+                <a class="header_button" href="{% url 'n_steg:decrypt' %}">Decrypt</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="outer_box">
+    <div id="content">
+
+<p>密码学已成为现代社会的关键，但在有效隐藏通信内容的同时，它却揭示了通信正在发生。另一方面，<b>隐写术</b>则以无害的掩盖信号处理隐藏信息，以至于观察者甚至都不知道正在进行任何通信。考虑到自然语言在通信时的频繁使用，自然语言是一种理想的掩盖信号；但是传统上，在不牺牲质量的情况下将大量信息编码为文本一直是一个挑战。</p>
+<p>在我们的工作中，我们展示了进行文本隐写的几种模型：较为传统的 <span class="color">
+bins</span>和<span class="color">Huffman</span>，以及我们着重实现的算术编码<span class="color">Arithmetic</span>和<span class="color">Saac</span>。这些编码算法都与文本生成模型GPT-2相结合，在文本隐写中取得了不错的效果。本网站提供了这四种模型的演示。你可以自由选择合适地模型得到嵌入秘密信息的语句。<P>
+<p><b>加密</b> - 根据某段自然语言上下文生成嵌入文本。其基本过程为：1、使用文本生成模型生成多个可能与上下文有关的token；2、使用编码算法把秘密信息嵌入token。</p>
+<P><b>解密</b> - -读取先前生成的嵌入文本以及用于生成该文本的上下文，以恢复先前编码的秘密消息。其基本过程为：1.在给定的上下文中通过算术编码将嵌入文本解码为比特。2.使用特定参数和空上下文通过算术编码将比特编码到重建的秘密消息中。</p>
+
+<hr>
+
+<div id="contact">
+
+    <table id="org">
+        <tr>
+            <td id="logoname">
+                <img id="logo" src="/static/logo.jpg"/>
+                <span id="harvard_name">WHUNLP</span>
+            </td>
+            <td id="emails">
+                <span class='email1'></span>
+                <span class='email2'></span>
+                <span class='email3'></span>
+                <span class='email4'></span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<p>
+</p>
+
+
+    </div>
+
+</div>
+</div>
+
+<div id="footer">
+    <span>&copy; 2021 WHUNLP</span>
+</div>
+
+</body>
+</html>

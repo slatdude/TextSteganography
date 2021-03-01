@@ -1,0 +1,216 @@
+
+<!doctype html>
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118000090-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-118000090-2');
+    </script>
+
+    <meta property="og:title" content="STEGASURAS">
+    <meta property="og:description" content="STEGanography via Arithmetic coding and Strong neURAl modelS">
+    <meta property="og:image" content="https://steganography.live/static/61369-200_orange.png">
+    <meta property="og:url" content="https://steganography.live/">
+    <meta property="og:site_name" content="STEGASURAS">
+
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="Content-Language" content="en">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel= "stylesheet" type= "text/css" href= "/static/css/base.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <meta name="viewport" content="width=300, initial-scale=1">
+    <title>Decrypt</title>
+    <script src="static/js/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $SCRIPT_ROOT = "";
+
+        $(document).ready(function() {
+            window.addEventListener('resize', checkSize);
+            //$(window).resize(checkSize('png'));
+
+            var email1 = "zziegler&#64;g.harvard.edu"
+            var name1 = "Zachary Ziegler*"
+            var new_elem1 = "<a href='mailto:" + email1 + "'>" + name1 + "</a>";
+            var email2 = "dengyuntian&#64;g.harvard.edu"
+            var name2 = "Yuntian Deng*"
+            var new_elem2 = "<a href='mailto:" + email2 + "'>" + name2 + "</a>";
+            var email3 = "arush@cornell.edu"
+            var name3 = "Alexander Rush"
+            var new_elem3 = "<a href='mailto:" + email3 + "'>" + name3 + "</a>";
+            $(".email1").replaceWith(new_elem1);
+            $(".email2").replaceWith(new_elem2);
+            $(".email3").replaceWith(new_elem3);
+        });
+
+        function checkSize(e) {
+            $('#menu_button').attr('src', '/static/button_icon.png');
+            //$('#menu_button').css('background-color', 'white');
+            //console.log($('#menu').css('position'));
+            if ($('#menu').css('position') == 'absolute') {
+                //$('#menu').css('display', 'none');
+                $('#menu').css('visibility', 'hidden');
+                $('#menu').css('opacity', 0);
+                $('#menu').css('filter', 'alpha(opacity=0)');
+            } else {
+                //$('#menu').css('display', 'block');
+                $('#menu').css('visibility', 'visible');
+                $('#menu').css('opacity', 1);
+                $('#menu').css('filter', 'alpha(opacity=100)');
+            }
+
+        }
+
+        function toggle_menu(filetype) {
+            var display_val = $('#menu').css('visibility');
+
+            if (display_val == 'hidden') {
+                //$('#menu').css('display', 'block');
+                $('#menu').css('visibility', 'visible');
+                $('#menu').css('opacity', 1);
+                $('#menu').css('filter', 'alpha(opacity=100)');
+                $('#menu_button').attr('src', '/static/button_icon_active.'+filetype);
+                //$('#menu_button').css('background-color', '#dddddd');
+            } else {
+                //$('#menu').css('display', 'none');
+                $('#menu').css('visibility', 'hidden');
+                $('#menu').css('opacity', 0);
+                $('#menu').css('filter', 'alpha(opacity=0)');
+                $('#menu_button').attr('src', '/static/button_icon.'+filetype);
+                //$('#menu_button').css('background-color', 'white');
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="very_outer">
+<div id="header_wrapper">
+    <div id="header" class="cf">
+        <div id="title">
+            <img src="/static/61369-200_orange.png"/>
+            <a class="header_button" href="{% url 'n_steg:info' %}">STEGANORGRAPHY AND LOVE</a>
+        </div>
+        <img id="menu_button" onclick="toggle_menu('png');" src='/static/button_icon.png'>
+        <div id="menu">
+            <div id="left" class="menu_item ">
+                <a class="header_button" href="{% url 'n_steg:info' %}">Info</a>
+            </div>
+            <div id="mid" class="menu_item ">
+                <a class="header_button" href="{% url 'n_steg:encrypt' %}">Encrypt</a>
+            </div>
+            <div id="right" class="menu_item active">
+                <a class="header_button" href="{% url 'n_steg:decrypt' %}">Decrypt</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="outer_box">
+    <div id="content">
+
+
+<form id="form" method="post" action="{% url 'n_steg:decrypt' %}">
+    {% csrf_token %}
+    <label for="context"><b>Context</b>
+        <span class="info">&#9432;
+            <span class="tooltiptext">隐写的上下文。生成文本的风格将与之类似。</span>
+        </span>
+    </label>
+    <textarea id="context" name="context" disabled="disabled">
+As I am writing this letter today, I have a million thoughts running through my mind. This letter is meant to be a testament to the love I feel for you – a love that is honestly hard to put into words because it is a love that can only be felt. Do you know how much you mean to me? You are the reason I wake up in the morning – you are the one person that can put a smile on my face, even on those days when I am feeling down. You are the reason I am able to lay in bed and fall asleep peacefully. Looking at it, I realize your love has done so much for me in my life –you have offered me new opportunities that no other person would be able to offer me. I love you so much – more than words will ever be able to express.
+
+As you lay next to me in bed sleeping, I lay there and wonder what I did to get so lucky in my life. You are the one that has reached out and showed me the true meaning of what it feels like to be in peace. There is no other person in this world that could have done that for me. Now that I know you are the one, I want to offer you all of the happiness the world could possibly give. I love you and I will always love you.
+
+There isn’t a day that goes by when my mind isn’t thinking of you – you are the reason behind every piece of joy in my life. You are the one that has lifted me up to show me the beauty of life. Before you came into my life, I didn't see much beauty around me – I lived in a world that was sad. I was broken and alone.
+
+When you walked into my life, the sunshine walked in with you. I cannot thank you enough for doing everything you have done for you. I can repay you by offering my love unconditionally and whole heartedly. You are my dream come true – you are the love of my life.
+
+When I first saw you, you was standing in the middle of some people, laughing. There was just something about you that I couldn’t quite place my finger on. Maybe it was the way you laughed or that sparkle in your eye. I don’t know, but what I do know is that I was attracted to you and have never been attracted to another woman in this way. When I walked up to you, I hesitated a bit, because I thought I may be out of your league – here I was, a broken guy and there you were, a girl full of life. Do you get what I’m saying? I swear though, when I first talked to you, my heart skipped a beat. Now that we are together, I see that you and I truly were mean to be.
+
+There are a thousand ways to say I love you around the world, but there's only one way to prove it and that is by the actions we take. Looking back, I see that you have proved that you love me and I hope you are feeling just how much I love you
+
+I try my hardest to show you my love by taking care of you and doing the things I know you like. Forgive me if I have ever hurt you or caused you any pain – that was never my intentions. I love you forever and always and I will never ever leave your side – you are my soul mate, my lover and my best friend. I hope that you and I will get to spend our lives together because I couldn't imagine spending my life with anyone else other than you.
+    </textarea>
+
+    <label for="cover_text"><b>cover text</b>
+        <span class="info">&#9432;
+            <span class="tooltiptext">加密的输出</span>
+        </span>
+    </label>
+    <textarea id="cover_text" name="cover_text"></textarea>
+
+    <label for="name_en"><b>Name</b>
+        <span class="info">&#9432;
+            <span class="tooltiptext">您的名字。加密的输入</span>
+        </span>
+    </label>
+    <textarea id="name_en" name="name_en"></textarea>
+
+    <div id="options">
+        <table>
+            <tr>
+                <td class="first"><span class="info">&#9432;
+                    <span class="tooltiptext">How bits are converted into cover text. Each algorithm has its own parameter controlling tradeoff between compression and quality. Must be same as during encrypt.</span>
+                </span> <label for="enc_method"><b>文本隐写算法:</b></label></td>
+                <td class="second">
+                    <select id="steg_method" name="steg_method" onchange="alg_updated()">
+                        <option value="arithmetic" selected="selected">Arithmetic</option>
+                        <option value="huffman">Huffman</option>
+                        <option value="bins">Bins</option>
+                        <option value="saac">Saac</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr id="param">
+                <td class="first">
+                    <span class="info">&#9432;
+                        <span class="tooltiptext">Temperature modules logits, lower is better quality. Must be same as during encrypt.</span>
+                    </span>
+                    <label for="temp"><b>参数r: </b></label>
+                </td>
+                <td class="second"><input id="temp" name="temp" value="0.9"/></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div id="button_wrapper">
+        <input type="submit" id="submit" class="button" name="submit" value="Decrypt" />
+    </div>
+</form>
+    <ul>
+        {%if answers == 1 %}
+            <li><p>YOU ARE THE ONE!(^..^)</p></li>
+        {% elif answers == 0 %}
+            <li>PITY. ('..')</li>
+        {% else %}
+            <li>Check the love letter!</li>
+        {% endif %}
+    </ul>
+
+
+    </div>
+
+</div>
+</div>
+
+<div id="footer">
+    <span>&copy; 2021 WHUNLP</span>
+</div>
+
+</body>
+</html>
